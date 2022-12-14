@@ -12,9 +12,9 @@ function Navbar(){
                         {/* Aqui va el logo */}
                         <Typography sx={{flexGrow: 1}}>
                             <Link to="/" style={{textDecoration: 'none', color: 'black', fontWeight: '30px'}}>
-                                <h2>
+                                <h1>
                                     QUERIMA
-                                </h2>
+                                </h1>
                             </Link>
                         </Typography>
                         <ButtonGroup variant="contained" color='secondary' aria-label="outlined button group">
