@@ -47,14 +47,17 @@ function App() {
           <Route path='/pedidos' element={<Pedidos/>}/>
           <Route path='/pedidos/buscar' element={<BuscarPedidos/>}/>
           <Route path='/pedidos/crear' element={<CrearPedidos/>}/>
+          <Route path='/pedidos/:id/editar' element={<CrearPedidos/>}/>
 
           <Route path='/proveedores' element={<Proveedores/>}/>
           <Route path='/proveedores/buscar' element={<BuscarProveedores/>}/>
           <Route path='/proveedores/crear' element={<CrearProveedores/>}/>
+          <Route path='/proveedores/:id/editar' element={<CrearProveedores/>}/>
 
           <Route path='/sucursales' element={<Sucursales/>}/>
           <Route path='/sucursales/buscar' element={<BuscarSucursales/>}/>
           <Route path='/sucursales/crear' element={<CrearSucursales/>}/>
+          <Route path='/sucursales/:id/editar' element={<CrearSucursales/>}/>
 
         </Routes>
       </Container>
