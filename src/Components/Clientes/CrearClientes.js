@@ -45,8 +45,8 @@ function CrearClientes(){
         setClientes({...clientes, [e.target.name]: e.target.value})
         // console.log(e.target.name, e.target.value);
     
-    const loadClient = async(id)=>{
-        const res=await fetch(`https://localhost:4000/readcliente/${id}`)
+    const loadClient = async(telefono)=>{
+        const res=await fetch(`https://localhost:4000/readcliente/${telefono}`)
         const data = await res.json()
         console.log(data);
         setClientes({id:data.id, nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion});
@@ -54,6 +54,7 @@ function CrearClientes(){
     }
     useEffect(()=>{
         if(params.telefono){
+            console.log(params);
             loadClient(params.telefono);
         }
     },[params.telefono])
