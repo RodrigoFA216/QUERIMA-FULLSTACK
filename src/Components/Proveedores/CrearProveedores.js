@@ -200,7 +200,7 @@ function CrearProveedores(){
                                     InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <Button variant='contained' color='primary' type='submit'
-                                    disabled={!proveedores.id || !proveedores.nombre || !proveedores.apellidoP || !proveedores.apellidoM || !proveedores.refdir || !proveedores.telefono || !proveedores.lada || !proveedores.email || !proveedores.Direccion }
+                                    
                                 >
                                     {loading ? (<CircularProgress color='inherit' size={24}/>): ("Save")}
                                 </Button>

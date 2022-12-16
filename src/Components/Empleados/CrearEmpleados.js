@@ -200,7 +200,7 @@ function CrearEmpleados(){
                                     InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <Button variant='contained' color='primary' type='submit'
-                                    disabled={!empleados.id || !empleados.nombre || !empleados.apellidoP || !empleados.apellidoM || !empleados.sucursal || !empleados.telefono || !empleados.lada || !empleados.email || !empleados.direccion }
+                                    
                                 >
                                     {loading ? (<CircularProgress color='inherit' size={24}/>): ("Save")}
                                 </Button>
