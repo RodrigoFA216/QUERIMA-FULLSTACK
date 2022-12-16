@@ -42,6 +42,7 @@ function App() {
           <Route path='/empleados' element={<Empleados/>}/>
           <Route path='/empleados/buscar' element={<BuscarEmpleados/>}/>
           <Route path='/empleados/crear' element={<CrearEmpleados/>}/>
+          <Route path='/empleados/:id/editar' element={<CrearEmpleados/>}/>
 
           <Route path='/pedidos' element={<Pedidos/>}/>
           <Route path='/pedidos/buscar' element={<BuscarPedidos/>}/>
