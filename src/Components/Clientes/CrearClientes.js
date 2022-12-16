@@ -24,7 +24,7 @@ function CrearClientes(){
         setLoading(true);
         console.log(clientes);
         if(editing){
-            await fetch(`http://localhost:4000/updatecliente/${params.id}`,{
+            await fetch(`http://localhost:4000/updatecliente/${clientes.telefono}`,{
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(clientes),
