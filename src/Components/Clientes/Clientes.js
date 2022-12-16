@@ -87,7 +87,7 @@ function Clientes(){
                             <div>
                                 <Button variant='contained' 
                                 color='inherit' 
-                                onClick={()=>navigate(`/clientes/${client.id}/editar`)}>
+                                onClick={()=>navigate(`/clientes/${client.telefono}/editar`)}>
                                     Editar
                                 </Button>
                                 <Button 
