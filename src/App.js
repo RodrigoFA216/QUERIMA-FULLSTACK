@@ -37,7 +37,7 @@ function App() {
           <Route path='/clientes' element={<Clientes/>}/>
           <Route path='/clientes/buscar' element={<BuscarClientes/>}/>
           <Route path='/clientes/crear' element={<CrearClientes/>}/>
-          <Route path='/clientes/:id/editar' element={<CrearClientes/>}/>
+          <Route path='/clientes/:telefono/editar' element={<CrearClientes/>}/>
 
           <Route path='/empleados' element={<Empleados/>}/>
           <Route path='/empleados/buscar' element={<BuscarEmpleados/>}/>

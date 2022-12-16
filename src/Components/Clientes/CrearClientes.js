@@ -4,7 +4,11 @@ import {useState, useEffect} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 
 function CrearClientes(){ 
-    const [cliente, setCliente] = useState({
+    const navigate=useNavigate();
+    const params=useParams();
+    const [loading, setLoading]=useState(false)
+    const [editing, setEditing] = useState(false)
+    const [clientes, setClientes]=useState({
         nombre: '',
         apellidoP: '',
         apellidoM: '',
@@ -14,55 +18,53 @@ function CrearClientes(){
         email: '',
         direccion: '',
     })
-    const [loading, setLoading] = useState(false);
-    const [editing, setEditing] = useState(false);
-    const navigate= useNavigate();
-    const params=useParams();
-    const handleChange = (e) =>{
-        setCliente({...cliente, [e.target.name]: e.target.value});
-    }
-    const handleSubmit = async(e) =>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
         setLoading(true);
+        console.log(clientes);
         if(editing){
-            await fetch(`http://localhost:4000/modelement/${params.id}`, {//---------------------------------------------falta esta ruta
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(cliente)
-            });
-        } else{
-            await fetch('http://localhost:4000/createcliente', {
+            await fetch(`http://localhost:4000/updatecliente/${params.id}`,{
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(clientes),
+            })
+        }else{
+            const res =await fetch('http://localhost:4000/createcliente',{
                 method: 'POST',
-                body: JSON.stringify(cliente),
-                headers: {'Content-Type': 'application/json'}
-            });
+                body: JSON.stringify(clientes),
+                headers: { 'Content-Type': 'application/json'},
+            })
+            const data = await res.json()
+            console.log(data);
         }
-        setLoading(false);
-        navigate('/');
+        setLoading(false)
+        navigate('/clientes');
     }
-    const loadTask= async(id)=>{
-        const res=await fetch(`http://localhost:4000/readcliente/${id}`)
+    const handleChange = e =>
+        setClientes({...clientes, [e.target.name]: e.target.value})
+        // console.log(e.target.name, e.target.value);
+    
+    const loadClient = async(id)=>{
+        const res=await fetch(`https://localhost:4000/readcliente/${id}`)
         const data = await res.json()
-        setCliente({nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion})
-        setEditing(true);
+        console.log(data);
+        setClientes({nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion});
+        setEditing(true)
     }
     useEffect(()=>{
-        if(params.id){
-            loadTask(params.id)
-        }// eslint-disable-next-line
-    }, [])
+        if(params.telefono){
+            loadClient(params.telefono);
+        }
+    },[params.telefono])
     return(
         <>
-            <h2>CrearClientes</h2>
             <Grid 
                 container
                 direction='column'
                 alignItems='center'
                 justifyContent='center'
             >
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Card
                         sx={{mt:5}}
                         style={{
@@ -76,118 +78,113 @@ function CrearClientes(){
                         <CardContent>
                             <form onSubmit={handleSubmit}>
                                 <TextField
-                                    variant='outlined'
-                                    label='Nombre'
+                                    variant='filled'
+                                    label='nombre'
+                                    name='nombre'
+                                    value={clientes.nombre}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop1'
-                                    value={cliente.nombre}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Apellido Paterno'
+                                    variant='filled'
+                                    label='apellidoP'
+                                    name='apellidoP'
+                                    value={clientes.apellidoP}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop2'
-                                    value={cliente.apellidoP}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Apellido Materno'
+                                    variant='filled'
+                                    label='apellidoM'
+                                    name='apellidoM'
+                                    value={clientes.apellidoM}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop3'
-                                    value={cliente.apellidoM}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Refdir'
+                                    variant='filled'
+                                    label='refdir' 
+                                    name='refdir'
+                                    value={clientes.refdir}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop4'
-                                    value={cliente.refdir}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Teléfono'
+                                    variant='filled'
+                                    label='telefono' 
+                                    name='telefono'
+                                    value={clientes.telefono}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop5'
-                                    value={cliente.telefono}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='LADA'
+                                    variant='filled'
+                                    label='lada' 
+                                    name='lada'
+                                    value={clientes.lada}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop6'
-                                    value={cliente.lada}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Email'
+                                    variant='filled'
+                                    label='email' 
+                                    name='email'
+                                    value={clientes.email}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop6'
-                                    value={cliente.email}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <TextField
-                                    variant='outlined'
-                                    label='Dirección'
+                                    variant='filled'
+                                    label='direccion' 
+                                    name='direccion'
+                                    value={clientes.direccion}
                                     sx={{
-                                        display: 'block',
-                                        margin: '0.5rem 0'
+                                        display:'block',
+                                        margin: '.5rem 0'
                                     }}
-                                    name='prop6'
-                                    value={cliente.direccion}
                                     onChange={handleChange}
-                                    inputProps={{style: {color: 'white'}}}
-                                    InputLabelProps={{style: {color:'white'}}}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
                                 />
-                                <Button
-                                    variant='contained'
-                                    color='secondary'
-                                    type='submit'
-                                    disabled={!cliente.nombre || !cliente.apellidoP || !cliente.apellidoM || !cliente.refdir || !cliente.telefono || !cliente.lada || !cliente.email || !cliente.direccion}>
-                                    {loading ? <CircularProgress
-                                        color='inherit'
-                                        size={24}
-                                    />: 'Save'}
+                                <Button variant='contained' color='primary' type='submit'
+                                    disabled={!clientes.nombre || !clientes.apellidoP || !clientes.apellidoM || !clientes.refdir || !clientes.telefono || !clientes.lada || !clientes.email || !clientes.direccion }
+                                >
+                                    {loading ? (<CircularProgress color='inherit' size={24}/>): ("Save")}
                                 </Button>
                             </form>
                         </CardContent>

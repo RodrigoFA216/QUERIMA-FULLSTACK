@@ -49,7 +49,7 @@ function Clientes(){
                         marginBottom: '.9rem',
                         backgroundColor: '#689FF2',
                         color: '#white'
-                    }}>
+                    }} key={clients.id}>
                         <CardContent style={{
                             display: "flex",
                             justifyContent: "space-between"
