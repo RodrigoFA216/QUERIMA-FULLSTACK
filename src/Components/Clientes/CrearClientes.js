@@ -29,6 +29,7 @@ function CrearClientes(){
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(clientes),
             })
+            setEditing(false)
         }else{
             const res =await fetch('http://localhost:4000/createcliente',{
                 method: 'POST',
@@ -41,9 +42,10 @@ function CrearClientes(){
         setLoading(false)
         navigate('/clientes');
     }
-    const handleChange = e =>
+    const handleChange = e =>{
         setClientes({...clientes, [e.target.name]: e.target.value})
         // console.log(e.target.name, e.target.value);
+    }
     
     const loadClient = async(telefono)=>{
         const res=await fetch(`https://localhost:4000/readcliente/${telefono}`)
@@ -55,6 +57,7 @@ function CrearClientes(){
     useEffect(()=>{
         if(params.telefono){
             console.log(params);
+            setEditing(true);
             loadClient(params.telefono);
         }
     },[params.telefono])
