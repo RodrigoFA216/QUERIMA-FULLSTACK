@@ -13,7 +13,6 @@ function CrearProveedores(){
         nombre: '',
         apellidoP: '',
         apellidoM: '',
-        refdir: '',
         telefono: '',
         lada: '',
         email: '',
@@ -52,7 +51,7 @@ function CrearProveedores(){
         const res=await fetch(`https://localhost:4000/readcliente/${telefono}`)
         const data = await res.json()
         console.log(data);
-        setProveedores({id:data.id, nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, NombreEmpresa:data.NombreEmpresa, Direccion:data.Direccion});
+        setProveedores({id:data.id, nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, telefono:data.telefono, lada:data.lada, email:data.email, NombreEmpresa:data.NombreEmpresa, Direccion:data.Direccion});
         setEditing(true)
     }
     useEffect(()=>{
@@ -127,19 +126,6 @@ function CrearProveedores(){
                                     label='apellidoM'
                                     name='apellidoM'
                                     value={proveedores.apellidoM}
-                                    sx={{
-                                        display:'block',
-                                        margin: '.5rem 0'
-                                    }}
-                                    onChange={handleChange}
-                                    inputProps={{style: {color:"white"}}}
-                                    InputLabelProps={{style: {color:"white"}}}
-                                />
-                                <TextField
-                                    variant='filled'
-                                    label='refdir' 
-                                    name='refdir'
-                                    value={proveedores.refdir}
                                     sx={{
                                         display:'block',
                                         margin: '.5rem 0'

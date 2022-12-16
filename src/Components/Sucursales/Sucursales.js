@@ -1,9 +1,33 @@
 import React from 'react'
-import { Card, CardContent, ButtonGroup, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Card, CardContent, ButtonGroup, Button, Typography } from '@mui/material';
 import {useNavigate} from 'react-router-dom'
 
 function Sucursales(){
+    const [sucursales, setSucursales]= useState([]);
     const navigate=useNavigate();
+    const loadClient=async()=>{
+        try {
+            const response= await fetch('http://localhost:4000/readsucursales');
+            const data=await response.json();
+            setSucursales(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleDelete=async(telefono)=>{
+        try {
+            await fetch(`http://localhost:4000/deletesucursal/${telefono}`,{
+                method: 'DELETE'
+            });
+            setSucursales(sucursales.filter((sucursal)=>sucursal.telefono !== telefono))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(()=>{
+        loadClient();
+    },[])
     return(
         <>
             <div style={{margin: '1rem', alignItems: 'center', textAlign: 'center'}}>
@@ -17,37 +41,57 @@ function Sucursales(){
                     </ButtonGroup>
                 </Card>
             </div>
-            <Card style={{
-                marginBottom: '.9rem',
-                backgroundColor: '#689FF2',
-                color: '#white'
-            }}>
-                <CardContent style={{
+            {
+                sucursales.map(sucursal=>(
+                    <Card style={{
+                        marginBottom: '.9rem',
+                        backgroundColor: '#689FF2',
+                        color: '#white'
+                    }} key={sucursales.id}>
+                        <CardContent style={{
                             display: "flex",
                             justifyContent: "space-between"
                         }}>
-                    <div>
-                        <h3>Sucursal dummy</h3>
-                    </div>
-                    <div>
-                        <Button 
-                                variant='contained' 
+                            <div>
+                                <Typography style={{color:'white'}}>
+                                    <h3>
+                                        {sucursal.nombre}
+                                    </h3>
+                                </Typography>
+                                <Typography>
+                                    <h4>
+                                        {sucursal.telefono}
+                                    </h4>
+                                    <h4>
+                                        {sucursal.lada}
+                                    </h4>
+                                    <h4>
+                                        {sucursal.PaginaWeb}
+                                    </h4>
+                                    <h4>
+                                        {sucursal.Direccion}
+                                    </h4>
+                                </Typography>
+                            </div>
+                            <div>
+                                <Button variant='contained' 
                                 color='inherit' 
-                                // onClick={()=>navigate(`/tasks/${task.id}/edit`)}
-                                >
-                            Editar
-                        </Button>
-                        <Button 
+                                onClick={()=>navigate(`/clientes/${sucursal.telefono}/editar`)}>
+                                    Editar
+                                </Button>
+                                <Button 
                                 variant='contained' 
                                 color='secondary' 
-                                // onClick={()=>handleDelete(task.id)}
+                                onClick={()=>handleDelete(sucursal.telefono)}
                                 style={{margin:'.6rem'}}
                                 >
-                            Eliminar
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
+                                    Eliminar
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))
+            }
         </>
     )
 }
