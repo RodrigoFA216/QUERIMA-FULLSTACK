@@ -10,7 +10,7 @@ function CrearPedidos(){
     const [editing, setEditing] = useState(false)
     const [pedidos, setPedidos]=useState({
         id: '',
-        numero: '',
+        numeropedido: '',
         FechaPedido: '',
         FechaEntrega: '',
         TipoPago: '',
@@ -51,8 +51,8 @@ function CrearPedidos(){
         // console.log(e.target.name, e.target.value);
     }
     
-    const loadClient = async(telefono)=>{
-        const res=await fetch(`https://localhost:4000/readcliente/${telefono}`)
+    const loadClient = async(numeropedido)=>{
+        const res=await fetch(`https://localhost:4000/readcliente/${numeropedido}`)
         const data = await res.json()
         console.log(data);
         setPedidos({id:data.id, numero:data.numero, FechaPedido:data.FechaPedido, FechaEntrega:data.FechaEntrega, TipoPago:data.TipoPago, Cliente:data.Cliente, Empleado:data.Empleado, PersonaRecibe:data.PersonaRecibe, CantidadPan:data.CantidadPan, Precio:data.Precio, Tamaño:dataTamaño, TipoHarina:data.TipoHarina, Nombre:data.Nombre});
