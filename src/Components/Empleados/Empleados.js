@@ -18,7 +18,7 @@ function Empleados(){
     }
     const handleDelete=async(telefono)=>{
         try {
-            await fetch(`http://localhost:4000/deletecliente/${telefono}`,{
+            await fetch(`http://localhost:4000/deleteempleado/${telefono}`,{
                 method: 'DELETE'
             });
             setEmpleados(empleados.filter((empleado)=>empleado.telefono !== telefono))
@@ -87,7 +87,7 @@ function Empleados(){
                             <div>
                                 <Button variant='contained' 
                                 color='inherit' 
-                                onClick={()=>navigate(`/empleados/${client.id}/editar`)}>
+                                onClick={()=>navigate(`/empleados/${empleado.id}/editar`)}>
                                     Editar
                                 </Button>
                                 <Button 
