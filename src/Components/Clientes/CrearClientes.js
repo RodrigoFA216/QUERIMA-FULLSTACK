@@ -43,9 +43,9 @@ function CrearClientes(){
         navigate('/');
     }
     const loadTask= async(id)=>{
-        const res=await fetch(`http://localhost:4000/readelement/${id}`)
+        const res=await fetch(`http://localhost:4000/readcliente/${id}`)
         const data = await res.json()
-        setCliente({title:data.title, descripcion:data.descripcion})
+        setCliente({nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion})
         setEditing(true);
     }
     useEffect(()=>{
