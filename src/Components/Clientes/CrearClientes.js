@@ -9,6 +9,7 @@ function CrearClientes(){
     const [loading, setLoading]=useState(false)
     const [editing, setEditing] = useState(false)
     const [clientes, setClientes]=useState({
+        id: '',
         nombre: '',
         apellidoP: '',
         apellidoM: '',
@@ -48,7 +49,7 @@ function CrearClientes(){
         const res=await fetch(`https://localhost:4000/readcliente/${id}`)
         const data = await res.json()
         console.log(data);
-        setClientes({nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion});
+        setClientes({id:data.id, nombre:data.nombre, apellidoP:data.apellidoP, apellidoM:data.apellidoM, refdir:data.refdir, telefono:data.telefono, lada:data.lada, email:data.email, direccion:data.direccion});
         setEditing(true)
     }
     useEffect(()=>{
@@ -77,6 +78,19 @@ function CrearClientes(){
                         </Typography>
                         <CardContent>
                             <form onSubmit={handleSubmit}>
+                                <TextField
+                                    variant='filled'
+                                    label='id'
+                                    name='id'
+                                    value={clientes.id}
+                                    sx={{
+                                        display:'block',
+                                        margin: '.5rem 0'
+                                    }}
+                                    onChange={handleChange}
+                                    inputProps={{style: {color:"white"}}}
+                                    InputLabelProps={{style: {color:"white"}}}
+                                />
                                 <TextField
                                     variant='filled'
                                     label='nombre'
@@ -182,7 +196,7 @@ function CrearClientes(){
                                     InputLabelProps={{style: {color:"white"}}}
                                 />
                                 <Button variant='contained' color='primary' type='submit'
-                                    disabled={!clientes.nombre || !clientes.apellidoP || !clientes.apellidoM || !clientes.refdir || !clientes.telefono || !clientes.lada || !clientes.email || !clientes.direccion }
+                                    disabled={!clientes.id || !clientes.nombre || !clientes.apellidoP || !clientes.apellidoM || !clientes.refdir || !clientes.telefono || !clientes.lada || !clientes.email || !clientes.direccion }
                                 >
                                     {loading ? (<CircularProgress color='inherit' size={24}/>): ("Save")}
                                 </Button>
