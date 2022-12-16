@@ -103,37 +103,6 @@ function Clientes(){
                     </Card>
                 ))
             }
-            <Card style={{
-                marginBottom: '.9rem',
-                backgroundColor: '#689FF2',
-                color: '#white'
-            }}>
-                <CardContent style={{
-                            display: "flex",
-                            justifyContent: "space-between"
-                        }}>
-                    <div>
-                        <h3>Cliente dummy</h3>
-                    </div>
-                    <div>
-                        <Button 
-                                variant='contained' 
-                                color='inherit' 
-                                // onClick={()=>navigate(`/tasks/${task.id}/edit`)}
-                                >
-                            Editar
-                        </Button>
-                        <Button 
-                                variant='contained' 
-                                color='secondary' 
-                                // onClick={()=>handleDelete(task.id)}
-                                style={{margin:'.6rem'}}
-                                >
-                            Eliminar
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
         </>
     )
 }
